@@ -15,7 +15,7 @@ class UserController extends Controller
         // Passagem de valor para acesso em html
         return view('users.add_users');
     }
-    
+
     public function getAllUsers(){
 
         $cesaeInfo = $this -> getCesaeInfo();
@@ -60,13 +60,14 @@ class UserController extends Controller
     // Função para obter dados do utilizador pelo forms
     public function storeUser(Request $request) {
         $request -> validate([
+            // Validação de dados pelo backend
             'email' => 'required|unique:users|email',
             'name' => 'string|max:50',
             'password' => 'min:6'
         ]);
 
-        
-        // Função para adicionar dados do utilizador ao banco de dados 'users'
+
+        // Inserir dados do utilizador ao banco de dados na tabela 'users'
         User::insert([
             'email' => $request->email,
             'name' => $request->name,
