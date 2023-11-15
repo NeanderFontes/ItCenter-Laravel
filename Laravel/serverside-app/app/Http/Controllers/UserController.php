@@ -9,100 +9,127 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function getAllUsers(){
-
+    /**
+     * Exibe todos os usuários.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getAllUsers()
+    {
+        // Obtém informações específicas do CESAE.
         $cesaeInfo = $this->getCesaeInfo();
+
+        // Obtém todos os usuários do banco de dados.
         $users = $this->allUsers();
 
-        ///dd($cesaeInfo);
-
-        return view('users.all_users',
-        compact('cesaeInfo',
-        'users'
-    ));
+        // Retorna a view 'users.all_users' com dados.
+        return view('users.all_users', compact('cesaeInfo', 'users'));
     }
 
-    public function addUser(){
+    /**
+     * Exibe o formulário para adicionar um novo usuário.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function addUser()
+    {
+        // Retorna a view 'users.add_user'.
         return view('users.add_user');
     }
 
-    public function viewUser($id){
+    /**
+     * Exibe o formulário para visualizar/editar um usuário existente.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function viewUser($id)
+    {
+        // Obtém informações de um usuário específico usando Eloquent.
+        $user = User::find($id);
 
-        $user = Db::table('users')
-                ->where('id',$id)
-                ->first();
-
+        // Retorna a view 'users.add_user' com dados do usuário.
         return view('users.add_user', compact('user'));
     }
 
-    public function deleteUser($id){
+    /**
+     * Exclui um usuário e suas tarefas associadas.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteUser($id)
+    {
+        // Exclui todas as tarefas associadas ao usuário.
+        DB::table('tasks')->where('user_id', $id)->delete();
 
-       Db::table('tasks')
-        ->where('user_id',$id)
-        ->delete();
+        // Exclui o usuário.
+        User::where('id', $id)->delete();
 
-        Db::table('users')
-                ->where('id',$id)
-                ->delete();
-
+        // Retorna para a página anterior.
         return back();
     }
 
-    public function storeUser(Request $request){
+    /**
+     * Armazena um novo usuário ou atualiza um existente.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeUser(Request $request)
+    {
+        // Regras de validação para o formulário.
+        $rules = [
+            'email' => 'required|email|unique:users,email,' . $request->user_id,
+            'name' => 'string|max:50',
+            'password' => 'min:6',
+        ];
 
-        //validar se é update ou insert
+        // Executa a validação.
+        $request->validate($rules);
 
-        //é update porque tem um id, o que quer dizer que já existe
-        if($request->user_id){
-            $request->validate([
-                'name' => 'string|max:50',
-                'password' => 'min:6'
-               ]);
-
-               User::where('id', $request->user_id)
-               ->update([
+        // Verifica se é uma atualização ou inserção com base na presença de um ID.
+        if ($request->user_id) {
+            // Atualiza um usuário existente.
+            User::where('id', $request->user_id)->update([
                 'name' => $request->name,
                 'address' => $request->address,
                 'password' => Hash::make($request->password),
-               ]);
-        }else{
-                //é insert porque NÂO tem um id, o que quer dizer que ainda Não existe
-            $request->validate([
-                'email' => 'required|unique:users|email',
-                'name' => 'string|max:50',
-                'password' => 'min:6'
-               ]);
-
-               User::insert([
+            ]);
+        } else {
+            // Insere um novo usuário.
+            User::create([
                 'email' => $request->email,
                 'name' => $request->name,
                 'password' => Hash::make($request->password),
-               ]);
+            ]);
         }
 
-       return redirect()->route('users.all');
+        // Redireciona para a rota 'users.all'.
+        return redirect()->route('users.all');
     }
 
-    protected function getCesaeInfo(){
-        $cesaeInfo = [
+    /**
+     * Obtém informações específicas do CESAE.
+     *
+     * @return array
+     */
+    protected function getCesaeInfo()
+    {
+        return [
             'name' => 'Cesae',
             'address' => 'Europarque',
             'email' => 'Cesae@gmail.com',
         ];
-
-       // $cesaeInfo['email'];
-
-
-        return $cesaeInfo;
     }
 
-    protected function allUsers(){
-        $users = DB::table('users')
-                ->get();
-
-        return $users;
-
+    /**
+     * Obtém todos os usuários do banco de dados usando Eloquent.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    protected function allUsers()
+    {
+        return User::all();
     }
-
-
 }

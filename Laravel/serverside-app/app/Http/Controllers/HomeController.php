@@ -7,34 +7,32 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-
-    public function getMain(){
+    /**
+     * Obtém os dados principais para a página inicial e exibe a view 'general.home'.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getMain()
+    {
+        // Variável de saudação.
         $hello = 'Hello World';
 
+        // Dias da semana.
         $weekDays = [
-          'Segunda',
-          'Terça',
-          'Quarta'
-         ];
+            'Segunda',
+            'Terça',
+            'Quarta'
+        ];
 
-        $user =DB::table('users')
-        ->where('id', 2)
-        ->first();
+        // Obtém informações de um usuário específico.
+        $user = DB::table('users')
+            ->where('id', 2)
+            ->first();
 
+        // Obtém todos os usuários.
         $users = $this->getAllUsers();
 
-
-
-
-        /*$weekDays = [
-           ['Python', 'Isi'],
-           ['r', 'd'],
-           ['46464', '4644'],
-        ];*/
-
-
-        //dd($weekDays[0]);
-
+        // Retorna a view 'general.home' com os dados.
         return view('general.home', compact(
             'hello',
             'weekDays',
@@ -43,13 +41,17 @@ class HomeController extends Controller
         ));
     }
 
-    protected function getAllUsers(){
-        $users = db::table('users')
-                ->get();
+    /**
+     * Obtém todos os usuários do banco de dados.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    protected function getAllUsers()
+    {
+        // Obtém todos os usuários do banco de dados.
+        $users = DB::table('users')
+            ->get();
 
         return $users;
-
     }
-
-
 }

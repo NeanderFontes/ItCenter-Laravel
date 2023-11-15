@@ -8,69 +8,106 @@ use Illuminate\Support\Facades\DB;
 
 class TasksController extends Controller
 {
-    public function getAllTasks(){
-
+    /**
+     * Obtém todas as tarefas e exibe a view 'tasks.all_tasks'.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getAllTasks()
+    {
+        // Obtém todas as tarefas do banco de dados.
         $tasks = $this->allTasks();
 
-       /* $tasksFromModel = Task::get();
-
-        dd($tasksFromModel);*/
-
-        return view('tasks.all_tasks', compact(
-            'tasks'
-        ));
+        // Retorna a view 'tasks.all_tasks' com os dados das tarefas.
+        return view('tasks.all_tasks', compact('tasks'));
     }
 
-    public function viewTask($id){
-
-        $task = Db::table('tasks')
-                ->where('tasks.id',$id)
-                ->join('users', 'tasks.user_id','=', 'users.id')
+    /**
+     * Exibe os detalhes de uma tarefa específica.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function viewTask($id)
+    {
+        // Obtém os detalhes de uma tarefa específica, incluindo o nome do usuário responsável.
+        $task = DB::table('tasks')
+                ->where('tasks.id', $id)
+                ->join('users', 'tasks.user_id', '=', 'users.id')
                 ->select('tasks.*', 'users.name as resname')
                 ->first();
 
+        // Retorna a view 'tasks.view_task' com os detalhes da tarefa.
         return view('tasks.view_task', compact('task'));
     }
 
-    public function deleteTask($id){
+    /**
+     * Exclui uma tarefa específica.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteTask($id)
+    {
+        // Exclui a tarefa do banco de dados.
+        DB::table('tasks')->where('id', $id)->delete();
 
-        Db::table('tasks')
-                ->where('id',$id)
-                ->delete();
-
+        // Retorna para a página anterior.
         return back();
     }
 
-    public function addTask(){
-
+    /**
+     * Exibe o formulário para adicionar uma nova tarefa.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function addTask()
+    {
+        // Obtém todos os usuários para o formulário.
         $users = DB::table('users')->get();
 
+        // Retorna a view 'tasks.add_task' com os usuários.
         return view('tasks.add_task', compact('users'));
     }
 
-    public function storeTask(Request $request){
-
+    /**
+     * Armazena uma nova tarefa no banco de dados.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeTask(Request $request)
+    {
+        // Regras de validação para o formulário de adição de tarefa.
         $request->validate([
             'name' => 'required|string|max:50',
-            'description' =>'required|string',
-            'user_id' =>'required|string',
-           ]);
+            'description' => 'required|string',
+            'user_id' => 'required|string',
+        ]);
 
-           DB::table('tasks')->insert([
+        // Insere a nova tarefa no banco de dados.
+        DB::table('tasks')->insert([
             'name' => $request->name,
             'description' => $request->description,
             'user_id' => $request->user_id,
-           ]);
+        ]);
 
-           return redirect()->route('tasks.all');
+        // Redireciona para a rota 'tasks.all'.
+        return redirect()->route('tasks.all');
     }
-    protected function allTasks(){
 
-        $tasks = Task::join('users', 'tasks.user_id','=', 'users.id')
+    /**
+     * Obtém todas as tarefas, incluindo o nome do usuário responsável, usando Eloquent.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    protected function allTasks()
+    {
+        // Obtém todas as tarefas e o nome do usuário responsável usando Eloquent.
+        $tasks = Task::join('users', 'tasks.user_id', '=', 'users.id')
                 ->select('tasks.*', 'users.name as resname')
                 ->get();
 
         return $tasks;
-
     }
 }
