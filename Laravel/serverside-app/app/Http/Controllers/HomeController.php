@@ -7,59 +7,49 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    // Chamada de função por POO para HomerController
-    public function getMain() {
-        // Passagem de valor para acesso em html
-        $hello = "Hello World";
-        
-        // Criação de variável para acessar o banco de dados da tabela 'users'
-        $users = DB::table('users') -> first();
-        //dd($users);
 
-        // Query para obter dados do 'id 2' da tabela e buscar pelos dados quaisquer
-        $user = DB::table('users') -> where('id', 2) -> first();
-        //dd($user);
+    public function getMain(){
+        $hello = 'Hello World';
 
-        // Atribuição na variável da função 'AllUsers'
-        $allusers = $this -> getAllUsers();
+        $weekDays = [
+          'Segunda',
+          'Terça',
+          'Quarta'
+         ];
 
-        // Atribuição na variável da função 'AllTasks'
-        $allTasks = $this -> getAllTasks();
-        //dd($allTasks);
+        $user =DB::table('users')
+        ->where('id', 2)
+        ->first();
 
-        // Final da função 
+        $users = $this->getAllUsers();
+
+
+
+
+        /*$weekDays = [
+           ['Python', 'Isi'],
+           ['r', 'd'],
+           ['46464', '4644'],
+        ];*/
+
+
+        //dd($weekDays[0]);
+
         return view('general.home', compact(
             'hello',
+            'weekDays',
             'user',
-            'allusers',
-            'allTasks'
+            'users'
         ));
     }
 
-    public function viewUser($id){
+    protected function getAllUsers(){
+        $users = db::table('users')
+                ->get();
 
-        $user = Db::table('users')
-                ->where('id',$id)
-                ->first();
+        return $users;
 
-        return view('users.view_user', compact(
-            'user'
-        ));
     }
 
-    protected function getAllUsers() {
-        // Exercicio Query Builder 'receber todos resultados da tabela através de aray e representar pelo forEach'
-        $allusers = DB::table('users') -> get();
-        //dd($allusers);
 
-        return $allusers;
-    }
-
-    protected function getAllTasks() {
-        // Exercicio Query Builder acessar todos dados da tabela 'tasks' em Mysql
-        $tabelaTasks = DB::table('tasks') -> get();
-        //($tabelaTasks);
-
-        return $tabelaTasks;
-    }
 }

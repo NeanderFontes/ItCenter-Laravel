@@ -4,6 +4,10 @@
     <div class="container">
 
         <h2>Olá, sou todos os utilizadores</h2>
+        {{--
+        <h5>Nome: {{ $cesaeInfo['name'] }}</h5>
+        <h5>morada:{{ $cesaeInfo['address'] }}</h5>
+        <h5>email:{{ $cesaeInfo['email'] }}</h5> --}}
 
         <table class="table">
             <thead>
@@ -13,6 +17,7 @@
                     <th scope="col">Morada</th>
                     <th scope="col">Email</th>
                     <th scope="col">Password</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -32,5 +37,4 @@
             </tbody>
         </table>
     </div>
-    <a href="{{ route('home') }}">Voltar Home</a>
-@endsection    
+@endsection

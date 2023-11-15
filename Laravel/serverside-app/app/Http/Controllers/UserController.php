@@ -3,29 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // Chamada de função por POO para UserController
-    public function getMainUser() {
-        // Passagem de valor para acesso em html
-        return view('users.add_users');
-    }
-
     public function getAllUsers(){
 
-        $cesaeInfo = $this -> getCesaeInfo();
+        $cesaeInfo = $this->getCesaeInfo();
         $users = $this->allUsers();
 
         ///dd($cesaeInfo);
 
         return view('users.all_users',
         compact('cesaeInfo',
-        'users',
+        'users'
     ));
     }
 
@@ -39,14 +32,12 @@ class UserController extends Controller
                 ->where('id',$id)
                 ->first();
 
-        return view('users.add_users', compact(
-            'user'
-        ));
+        return view('users.add_user', compact('user'));
     }
 
     public function deleteUser($id){
 
-        Db::table('tasks')
+       Db::table('tasks')
         ->where('user_id',$id)
         ->delete();
 
@@ -57,45 +48,40 @@ class UserController extends Controller
         return back();
     }
 
-    // Função para obter dados do utilizador pelo forms
-    public function storeUser(Request $request) {
+    public function storeUser(Request $request){
 
-        // Validação de dados para 'update' ou 'insert'
-        if($request->user_id) {
-            $request -> validate([
-                // Validação de dados pelo backend
+        //validar se é update ou insert
+
+        //é update porque tem um id, o que quer dizer que já existe
+        if($request->user_id){
+            $request->validate([
                 'name' => 'string|max:50',
                 'password' => 'min:6'
-            ]);
+               ]);
 
-            // Update de dados do utilizador ao banco de dados na tabela 'users'
-            User::where('id', $request->user_id)
-            -update([
-                'email' => $request->email,
+               User::where('id', $request->user_id)
+               ->update([
                 'name' => $request->name,
-            ]);
-        } else {
-            $request -> validate([
-            // Validação de dados pelo backend
-            'email' => 'required|unique:users|email',
-            'name' => 'string|max:50',
-            'password' => 'min:6'
-        ]);
-
-
-            // Inserir dados do utilizador ao banco de dados na tabela 'users'
-            User::insert([
-                'email' => $request->email,
-                'name' => $request->name,
-                // "Hash" passagem do password codificada
+                'address' => $request->address,
                 'password' => Hash::make($request->password),
-            ]);
+               ]);
+        }else{
+                //é insert porque NÂO tem um id, o que quer dizer que ainda Não existe
+            $request->validate([
+                'email' => 'required|unique:users|email',
+                'name' => 'string|max:50',
+                'password' => 'min:6'
+               ]);
+
+               User::insert([
+                'email' => $request->email,
+                'name' => $request->name,
+                'password' => Hash::make($request->password),
+               ]);
         }
 
-
-        return redirect() -> route('users.all');
+       return redirect()->route('users.all');
     }
-
 
     protected function getCesaeInfo(){
         $cesaeInfo = [
@@ -105,14 +91,18 @@ class UserController extends Controller
         ];
 
        // $cesaeInfo['email'];
+
+
         return $cesaeInfo;
     }
 
     protected function allUsers(){
-        $users = db::table('users')
+        $users = DB::table('users')
                 ->get();
 
         return $users;
 
     }
+
+
 }

@@ -2,96 +2,75 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TasksController extends Controller
 {
-    
     public function getAllTasks(){
 
         $tasks = $this->allTasks();
 
-        //dd( $tasks);
+       /* $tasksFromModel = Task::get();
+
+        dd($tasksFromModel);*/
+
         return view('tasks.all_tasks', compact(
             'tasks'
         ));
     }
 
+    public function viewTask($id){
+
+        $task = Db::table('tasks')
+                ->where('tasks.id',$id)
+                ->join('users', 'tasks.user_id','=', 'users.id')
+                ->select('tasks.*', 'users.name as resname')
+                ->first();
+
+        return view('tasks.view_task', compact('task'));
+    }
+
+    public function deleteTask($id){
+
+        Db::table('tasks')
+                ->where('id',$id)
+                ->delete();
+
+        return back();
+    }
+
+    public function addTask(){
+
+        $users = DB::table('users')->get();
+
+        return view('tasks.add_task', compact('users'));
+    }
+
+    public function storeTask(Request $request){
+
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'description' =>'required|string',
+            'user_id' =>'required|string',
+           ]);
+
+           DB::table('tasks')->insert([
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => $request->user_id,
+           ]);
+
+           return redirect()->route('tasks.all');
+    }
     protected function allTasks(){
 
-        $tasks = DB::table('tasks')
-                ->join('users', 'tasks.user_id','=', 'users.id')
+        $tasks = Task::join('users', 'tasks.user_id','=', 'users.id')
                 ->select('tasks.*', 'users.name as resname')
                 ->get();
 
         return $tasks;
 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
