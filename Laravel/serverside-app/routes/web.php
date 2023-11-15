@@ -37,6 +37,7 @@ Route::get('/home', [HomeController::class, 'getMain']) -> name('home');
 // Rota de Acesso para exemplo de "all_users.blade.php"
 Route::get('/all-users', [UserController::class, 'getAllUsers'] )->name('users.all');
 
+// Rota de Acesso para adicionar Utilizador de "add_users.blade.php"
 Route::get('/add-user', [UserController::class, 'addUser'])->name('users.add');
 
 // Rota para transportar dados do utilizador ao DB

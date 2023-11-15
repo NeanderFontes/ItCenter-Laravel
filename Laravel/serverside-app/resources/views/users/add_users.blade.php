@@ -2,10 +2,19 @@
 
 @section('content')
     <div class="container">
-        <h1>Rota para adicionar Utilizadores!!</h1>
+
+        @if (isset($user))
+            <h1>Aqui é Update do Utilizador {{ $user->name }}</h1>
+        @else
+            <h1>Rota para adicionar Utilizadores!!</h1>
+        @endif
+
         <form method="POST" action="{{ route('users.store') }}">
             {{-- Tokem de Validação --}}
             @csrf
+
+            {{-- Input "escondido" para Update de dados --}}
+            <input name="user_id" value="{{ isset($user) ? $user->name : null }}" type="hidden">
 
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Nome</label>
@@ -18,7 +27,8 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input name="email" value="{{ isset($user) ? $user->email : '' }}" type="email" class="form-control"
+                <input @if (isset($user)) disabled @endif name="email"
+                    value="{{ isset($user) ? $user->email : '' }}" type="email" class="form-control"
                     id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 {{-- Resposta para validações de dados inseridos inválido --}}
                 @error('email')
@@ -36,6 +46,13 @@
                     </div>
                 @enderror
             </div>
+            @if (isset($user))
+            <div class="mb-3">
+                <label for="address" class="form-label">Morada</label>
+                <input name="address" value="{{ isset($user) ? $user->password : '' }}" type="text"
+                    class="form-control" id="exampleInputPassword1" required>
+            </div>
+            @endif
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     </div>

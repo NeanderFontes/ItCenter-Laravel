@@ -59,7 +59,23 @@ class UserController extends Controller
 
     // Função para obter dados do utilizador pelo forms
     public function storeUser(Request $request) {
-        $request -> validate([
+
+        // Validação de dados para 'update' ou 'insert'
+        if($request->user_id) {
+            $request -> validate([
+                // Validação de dados pelo backend
+                'name' => 'string|max:50',
+                'password' => 'min:6'
+            ]);
+
+            // Update de dados do utilizador ao banco de dados na tabela 'users'
+            User::where('id', $request->user_id)
+            -update([
+                'email' => $request->email,
+                'name' => $request->name,
+            ]);
+        } else {
+            $request -> validate([
             // Validação de dados pelo backend
             'email' => 'required|unique:users|email',
             'name' => 'string|max:50',
@@ -67,12 +83,15 @@ class UserController extends Controller
         ]);
 
 
-        // Inserir dados do utilizador ao banco de dados na tabela 'users'
-        User::insert([
-            'email' => $request->email,
-            'name' => $request->name,
-            'password' => Hash::make($request->password),
-        ]);
+            // Inserir dados do utilizador ao banco de dados na tabela 'users'
+            User::insert([
+                'email' => $request->email,
+                'name' => $request->name,
+                // "Hash" passagem do password codificada
+                'password' => Hash::make($request->password),
+            ]);
+        }
+
 
         return redirect() -> route('users.all');
     }
