@@ -6,7 +6,7 @@
 
         <!-- Título da página -->
         <h1>Todos os Utilizadores</h1>
-        
+
         <form method="GET">
             <!-- Dropdown para selecionar um usuário -->
             <select name="user_id" id="" onchange="this.form.submit()">
@@ -55,11 +55,13 @@
                         <td>{{ $user->password }}</td>
 
                         <!-- Links para ver e apagar o usuário -->
+                        @auth
                         <td>
                             <a href="{{ route('users.view', $user->id) }}" class="btn btn-info">Ver</a>
                             <a href="{{ route('users.delete', $user->id) }}" type="button"
                                 class="btn btn-danger">Apagar</a>
                         </td>
+                        @endauth
                     </tr>
                 @endforeach
             </tbody>

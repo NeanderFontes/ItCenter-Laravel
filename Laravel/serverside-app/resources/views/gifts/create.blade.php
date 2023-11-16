@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Adicionar Novo Gift/h1>
+    <h1>Adicionar Novo Gift</h1>
 
     {{-- Formulário para adicionar nova prenda --}}
     <form method="post" action="{{ route('gifts.store') }}">
