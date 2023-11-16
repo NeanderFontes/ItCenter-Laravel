@@ -31,9 +31,17 @@ class FortifyServiceProvider extends ServiceProvider
     Fortify::loginView(function () {
         return view('auth.login');
     });
-    
+
     RateLimiter::for("login", function () {
         Limit::perMinute(5);
+    });
+
+    Fortify::resetPasswordView(function (Request $request) {
+        return view('auth.reset-password');
+    });
+
+    Fortify::requestPasswordResetLinkView(function () {
+        return view('auth.forgot-password');
     });
 
 }

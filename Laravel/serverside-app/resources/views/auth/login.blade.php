@@ -5,7 +5,7 @@
     <div class="container">
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            
+
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                 <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -20,6 +20,7 @@
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{{ route('password.request') }}">Esqueceu a senha?</a>
         </form>
     </div>
 @endsection
