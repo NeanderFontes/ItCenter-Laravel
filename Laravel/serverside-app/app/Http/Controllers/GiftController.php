@@ -17,8 +17,6 @@ class GiftController extends Controller
     }
 
     public function store(Request $request) {
-        // Lógica para armazenar gifts no banco de dados
-        // Certifique-se de validar os dados antes de salvar
 
         return redirect()->route('gifts.index')->with('success', 'Gift adicionado com sucesso!');
     }
@@ -29,8 +27,6 @@ class GiftController extends Controller
     }
 
     public function update(Request $request, $id) {
-        // Lógica para atualizar gifts no banco de dados
-        // Certifique-se de validar os dados antes de atualizar
 
         return redirect()->route('gifts.index')->with('success', 'Gift atualizado com sucesso!');
     }
