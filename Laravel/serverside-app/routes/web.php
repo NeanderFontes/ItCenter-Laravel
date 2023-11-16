@@ -5,6 +5,7 @@ use App\Http\Controllers\GiftController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,20 +40,18 @@ Route::post('/store-task', [TasksController::class, 'storeTask'])->name('tasks.s
 
 
 // Rota para visualizar todas as prendas
-
 Route::get('/gifts', [GiftController::class, 'index'])->name('gifts.index');
-
 // Rota para exibir o formulário de adição de um novo gifts
 Route::get('/gifts/create', [GiftController::class, 'create'])->name('gifts.create');
-
 // Rota para processar o formulário de adição de um novo gift
 Route::post('/gifts', [GiftController::class, 'store'])->name('gifts.store');
-
 // Rota para exibir o formulário de edição de um gift existente
 Route::get('/gifts/{id}/edit', [GiftController::class, 'edit'])->name('gifts.edit');
-
 // Rota para processar o formulário de edição de um gift existente
 Route::put('/gifts/{id}', [GiftController::class, 'update'])->name('gifts.update');
+
+// Rota para backoffice do DashboardController
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.home')->middleware('auth');
 
 // Rota simples que retorna uma mensagem HTML.
 Route::get('/hello', function () {

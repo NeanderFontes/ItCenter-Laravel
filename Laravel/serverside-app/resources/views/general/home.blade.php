@@ -39,6 +39,9 @@
             <a href="{{ route('tasks.all') }}">
                 <li>Todas as Tarefas</li>
             </a>
+            <a href="{{ route('dashboard.home') }}">
+                <li>BackOffice</li>
+            </a>
         </ul>
         {{-- {{ $hello }} --}}
         <ul>
