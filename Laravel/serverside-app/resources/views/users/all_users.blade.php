@@ -6,6 +6,27 @@
 
         <!-- Título da página -->
         <h1>Todos os Utilizadores</h1>
+        
+        <form method="GET">
+            <!-- Dropdown para selecionar um usuário -->
+            <select name="user_id" id="" onchange="this.form.submit()">
+                <option value="">All Users</option>
+                <!-- Loop para iterar sobre todos os usuários disponíveis -->
+                @foreach ($allUsers as $item)
+                    <!-- Cria opções para cada usuário -->
+                    <option @if ($item->id == request()->query('user_id')) selected @endif value="{{ $item->id }}">
+                        {{ $item->name }}
+                    </option>
+                @endforeach
+            </select>
+
+            <!-- Campo de texto para inserir o texto da pesquisa -->
+            <input type="text" placeholder="Escreva o Email ou Nome" name="search"
+                value="{{ request()->query('search') }}">
+
+            <!-- Botão para submeter o formulário -->
+            <button>Procurar</button>
+        </form>
 
         <!-- Tabela para exibir os usuários -->
         <table class="table">
@@ -36,7 +57,8 @@
                         <!-- Links para ver e apagar o usuário -->
                         <td>
                             <a href="{{ route('users.view', $user->id) }}" class="btn btn-info">Ver</a>
-                            <a href="{{ route('users.delete', $user->id) }}" type="button" class="btn btn-danger">Apagar</a>
+                            <a href="{{ route('users.delete', $user->id) }}" type="button"
+                                class="btn btn-danger">Apagar</a>
                         </td>
                     </tr>
                 @endforeach

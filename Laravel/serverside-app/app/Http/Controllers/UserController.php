@@ -16,14 +16,34 @@ class UserController extends Controller
      */
     public function getAllUsers()
     {
+        $search = request()->query('search') ? request()->query('search') : null;
+
         // Obtém informações específicas do CESAE.
         $cesaeInfo = $this->getCesaeInfo();
 
         // Obtém todos os usuários do banco de dados.
-        $users = $this->allUsers();
+        $allUsers = $this->allUsers();
+
+        // Query para
+        if(request()->query('user_id')) {
+            $user = User::where('id', request()->query('user_id')->get());
+        } elseif($search) {
+            // Query para search
+            $user = User::where('name', "LIKE", "%{$search}%")->get();
+        } else {
+            // Obtém todos os usuários do banco de dados.
+            $users = $allUsers;
+        }
+
+
 
         // Retorna a view 'users.all_users' com dados.
-        return view('users.all_users', compact('cesaeInfo', 'users'));
+        return view('users.all_users',
+        compact(
+            'cesaeInfo',
+            'users',
+            'allUsers'
+        ));
     }
 
     /**
