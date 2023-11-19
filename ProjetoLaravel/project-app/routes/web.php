@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DeveloperController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +15,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Rota Principal "HomeController.php" da welcome.blade.php
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
+Route::get('/', [HomeController::class, 'create'])->name('welcome');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Rota Principal "ProductController.php" da product.blade.php de 'Sabores'
+Route::get('/produtos/{id}', [ProductController::class, 'index'])->name('produtos.product');
+Route::get('/produtos', [ProductController::class, 'create'])->name('produtos.product');
+
+// Rota para o Controller "DeveloperController.php" da developer.blade.php
+Route::get('/desenvolvedor', [DeveloperController::class, 'index'])->name('desenvolvedor.developer');
