@@ -12,7 +12,7 @@
         @endif
 
         <!-- Formulário para adicionar ou atualizar usuários -->
-        <form method="POST" action="{{ route('users.store') }}">
+        <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
             @csrf
 
             <!-- Campo oculto para o ID do usuário (usado apenas para atualização) -->
@@ -63,6 +63,13 @@
 
             <!-- Botão de envio do formulário -->
             <button type="submit" class="btn btn-primary">Submit</button>
+
+            {{-- Submit img --}}
+            <br>
+            <div class="mb-3">
+                <label for="photo" class="form-label">Photo</label>
+                <input  type="file" accept="image/*">
+            </div>
         </form>
     </div>
 @endsection

@@ -7,14 +7,12 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     // Rota principal para product.blade.php
-    public function index($id) {
-        return view('produtos.product', compact(
-            'id',
-        ));
-    }
+    public function index() {
 
-    // Rota principal para return view product.blade.php
-    public function create() {
+
+        // todo - criar variável da acessar a tabela de produtos da base de dados
+        
+
         return view('produtos.product');
     }
 }

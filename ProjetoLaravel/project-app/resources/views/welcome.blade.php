@@ -3,6 +3,8 @@
 {{-- Alteração do Titulo Home --}}
 @section('title', 'Sr Batata')
 
+
+@section('content')
 <!-- SLIDER -->
 <div class="container" id="slider-container">
     <div id="slider" class="carousel slide" data-bs-ride="carousel">
@@ -16,21 +18,21 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/batata1.jpg" class="d-block w-100" alt="Casa 1" />
+                <img src="img/batata1.jpg" class="d-block w-100" alt="Casa 1" />
                 <div class="carousel-caption">
                     <h5>Sr Batata</h5>
                     <a href="#" class="btn btn-dark">Nossa Marca</a>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/batata2.jpg" class="d-block w-100" alt="Casa 2" />
+                <img src="img/batata2.jpg" class="d-block w-100" alt="Casa 2" />
                 <div class="carousel-caption">
                     <h5>Batatas Recheadas</h5>
                     <a href="#" class="btn btn-dark">Sabores</a>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/batata3.jpeg" class="d-block w-100" alt="Casa 3" />
+                <img src="img/batata3.jpeg" class="d-block w-100" alt="Casa 3" />
                 <div class="carousel-caption">
                     <h5>Não Há Igual!!</h5>
                     <a href="#" class="btn btn-dark">Melhor batata da região</a>
@@ -91,6 +93,7 @@
         </div>
     </div>
 </div>
+
 <!-- DESTAQUES -->
 <div class="container" id="featured-container">
     <div class="col-12">
@@ -102,42 +105,42 @@
     <div class="col-12" id="featured-images">
         <div class="row g-4">
             <div class="col-12 col-md-4">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/batata4.jpg" alt="Projeto 1" class="img-fluid" />
+                <img src="img/batata4.jpg" alt="Projeto 1" class="img-fluid" />
                 <div class="banner-content">
                     <p class="secondary-color">Categoria</p>
                     <h3>Nome do Projeto</h3>
                 </div>
             </div>
             <div class="col-12 col-md-4">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/batata5.jpg" alt="Projeto 2" class="img-fluid" />
+                <img src="img/batata5.jpg" alt="Projeto 2" class="img-fluid" />
                 <div class="banner-content">
                     <p class="secondary-color">Categoria</p>
                     <h3>Nome do Projeto</h3>
                 </div>
             </div>
             <div class="col-12 col-md-4">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/batata6.jpeg" alt="Projeto 3" class="img-fluid" />
+                <img src="img/batata6.jpeg" alt="Projeto 3" class="img-fluid" />
                 <div class="banner-content">
                     <p class="secondary-color">Categoria</p>
                     <h3>Nome do Projeto</h3>
                 </div>
             </div>
             <div class="col-12 col-md-4">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/batata7.jpg" alt="Projeto 4" class="img-fluid" />
+                <img src="img/batata7.jpg" alt="Projeto 4" class="img-fluid" />
                 <div class="banner-content">
                     <p class="secondary-color">Categoria</p>
                     <h3>Nome do Projeto</h3>
                 </div>
             </div>
             <div class="col-12 col-md-4">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/batata8.jpg" alt="Projeto 5" class="img-fluid" />
+                <img src="img/batata8.jpg" alt="Projeto 5" class="img-fluid" />
                 <div class="banner-content">
                     <p class="secondary-color">Categoria</p>
                     <h3>Nome do Projeto</h3>
                 </div>
             </div>
             <div class="col-12 col-md-4">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/batata9.jpg" alt="Projeto 6" class="img-fluid" />
+                <img src="img/batata9.jpg" alt="Projeto 6" class="img-fluid" />
                 <div class="banner-content">
                     <p class="secondary-color">Categoria</p>
                     <h3>Nome do Projeto</h3>
@@ -158,7 +161,7 @@
     <div class="col-12">
         <div class="row">
             <div class="col-12 col-md-5" id="info-banner">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/batata10.jpg" alt="Informações" class="img-fluid" />
+                <img src="img/batata10.jpg" alt="Informações" class="img-fluid" />
             </div>
             <div class="col-12 col-md-7 bg-secondary-color" id="info-content">
                 <div class="row">
@@ -195,7 +198,4 @@
         </div>
     </div>
 </div>
-
-@section('content')
-
 @endsection

@@ -8,6 +8,9 @@ class HomeController extends Controller
 {
     // Rota principal para welcome.blade.php
     public function index() {
+
+
+
         return view('welcome');
     }
 

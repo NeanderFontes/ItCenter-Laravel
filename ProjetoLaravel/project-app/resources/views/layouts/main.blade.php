@@ -35,14 +35,12 @@
 </head>
 
 <body>
-    {{-- layout content --}}
-    @yield('content')
 
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg fixed-top bg-primary-color" id="navbar">
         <div class="container py-3">
             <a href="#" class="navbar-brand">
-                <img src="/DevSoft_TrabalhoPratico/Imagens/Srbatata.png" alt="SrBatata">
+                <img src="img/Srbatata.png" alt="SrBatata">
                 <span>SrBatata</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-items"
@@ -52,26 +50,32 @@
             <div class="collapse navbar-collapse" id="navbar-items">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a href="{{ route('welcome') }}" class="nav-link active primary-color" aria-current="page">Home</a>
+                        <a href="{{ route('welcome') }}" class="nav-link active primary-color"
+                            aria-current="page">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('produtos.product') }}"
-                            class="nav-link primary-color">Sabores</a>
+                        <a href="{{ route('produtos.product') }}" class="nav-link primary-color">Sabores</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('welcome') }}" class="nav-link primary-color">Contato</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('desenvolvedor.developer') }}" class="nav-link primary-color">Desenvolvedor</a>
+                        <a href="{{ route('desenvolvedor.developer') }}"
+                            class="nav-link primary-color">Desenvolvedor</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+
+    {{-- layout content --}}
+    @yield('content')
+
+                {{-- FOOTER TOP --}}
     <footer class="container-fluid bg-dark-color" id="footer">
         <div class="container">
             <div class="row">
-                <!-- FOOTER TOP -->
                 <div class="col-12" id="footer-top">
                     <div class="row justify-content-between">
                         <div class="col-4">
@@ -87,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- FOOTER DETAILS -->
+                {{-- FOOTER DETAILS --}}
                 <div class="col-12" id="footer-details">
                     <div class="row">
                         <div class="col-12 col-md-4" id="news-container">
@@ -130,7 +134,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- FOOTER BOTTOM -->
+                {{-- FOOTER BOTTOM --}}
                 <div class="col-12" id="footer-bottom">
                     <div class="row justify-content-between">
                         <div class="col-12 col-md-3">

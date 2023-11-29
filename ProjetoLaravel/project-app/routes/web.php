@@ -20,8 +20,10 @@ Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/', [HomeController::class, 'create'])->name('welcome');
 
 // Rota Principal "ProductController.php" da product.blade.php de 'Sabores'
-Route::get('/produtos/{id}', [ProductController::class, 'index'])->name('produtos.product');
-Route::get('/produtos', [ProductController::class, 'create'])->name('produtos.product');
+Route::get('/produtos', [ProductController::class, 'index'])->name('produtos.product');
+// Rotas CRUD para "ProductController.php"
+// Rota post
+// Rota delete
 
 // Rota para o Controller "DeveloperController.php" da developer.blade.php
 Route::get('/desenvolvedor', [DeveloperController::class, 'index'])->name('desenvolvedor.developer');
