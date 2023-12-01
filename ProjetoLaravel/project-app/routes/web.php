@@ -28,8 +28,8 @@ Route::get('/produtos', [ProductController::class, 'index'])->name('produtos.pro
 Route::get('/produtos/{id}', [ProductController::class, 'indexProduto'])->name('produtoCategoria');
 Route::get('/produtos/del/{id}', [ProductController::class, 'produtoDelete'])->name('produtoDelete');
 Route::get('/produtos/produtoUpdate/{id}',[ProductController::class, 'produtoUpdate'])->name('produtoUpdate');
-Route::put('/produtos/atualizarProduto/{id}', [ProductController::class, 'atualizarProduto'])->name('atualizarProduto');
 Route::put('/produtos/produto/add/',[ProductController::class, 'produtoStore'])->name('produtoStore');
+Route::post('/produtos/produto/create', [ProductController::class, 'createProduct'])->name('createProduct');
 
 // Rota para o Controller "DeveloperController.php" da developer.blade.php
 Route::get('/desenvolvedor', [DeveloperController::class, 'index'])->name('desenvolvedor.developer');

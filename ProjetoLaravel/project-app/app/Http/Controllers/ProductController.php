@@ -55,4 +55,11 @@ class ProductController extends Controller
             ]);
         return redirec()->route('produtos.product_view');
     }
+
+    public function createProduct(Request $request) {
+        
+        return view('produtos.product_create', compact(
+            'produtoAtual',
+        ));
+    }
 }
