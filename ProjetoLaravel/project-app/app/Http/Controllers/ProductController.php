@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -9,10 +11,48 @@ class ProductController extends Controller
     // Rota principal para product.blade.php
     public function index() {
 
+        // Categoria da tabela de banco de dados srbatata
+        $produtos = Produto::all();
+        //dd($produtos);
 
-        // todo - criar variável da acessar a tabela de produtos da base de dados
-        
 
-        return view('produtos.product');
+        return view('produtos.product', compact(
+            'produtos',
+        ));
+    }
+
+    public function indexProduto($id) {
+
+        $produtos = Produto::where('idCategory', $id)->get();
+
+        return view('produtos.product', compact(
+            'produtos',
+        ));
+    }
+
+    public function produtoDelete($id) {
+
+        Produto::where('id', $id)->delete();
+
+        return back();
+    }
+
+
+    public function produtoUpdate($id) {
+
+        $produtoAtual = Produto::where('id', $id)->first();
+
+        return view('produtos.product_view', compact(
+            'produtoAtual',
+        ));
+    }
+
+    public function produtoStore(Request $request) {
+
+        Produto::where('id', $request->id)->update([
+                'nameProducts' => $request->name,
+                'price' => $request->price,
+            ]);
+        return redirec()->route('produtos.product_view');
     }
 }

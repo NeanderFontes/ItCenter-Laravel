@@ -50,11 +50,11 @@
             <div class="collapse navbar-collapse" id="navbar-items">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a href="{{ route('welcome') }}" class="nav-link active primary-color"
+                        <a href="{{ route('welcome') }}" class="nav-link primary-color"
                             aria-current="page">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('produtos.product') }}" class="nav-link primary-color">Sabores</a>
+                        <a href="{{ route('categorias.category') }}" class="nav-link primary-color">Categoria de Produtos</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('welcome') }}" class="nav-link primary-color">Contato</a>

@@ -4,73 +4,46 @@
 @section('title', 'Produtos')
 
 @section('content')
-    <br><br><br><br><br><br><br>
-    <h1>Colocar código HTML para Lista de Produtos</h1>
-    <br><br>
-    <table>
-        <tr>
-            <th style="width: 1%;">CÓDIGO PRODUTO</th>
-            <th style="width: 7%;">SABORES</th>
-            <th style="width: 50%;">DESCRIÇÕES</th>
-            <th>Botões</th>
-            <th style="width: 1%;">VALORES</th>
-        </tr>
-        {{-- @foreach ($collection as $item) --}}
-            <tr>
-                <td>#123</td>
-                <td>CALABRESA PICANTE</td>
-                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut deserunt cum voluptates sequi facilis
-                    omnis quaerat ipsa esse, eaque, corporis doloremque ipsam fugiat perspiciatis fugit sunt rerum iure!
-                    Doloremque, fugit!</td>
-                <td>Botões</td>
-                <td>€</td>
-            </tr>
-        {{-- @endforeach --}}
+    <br><br><br><br><br><br><br><!-- Formulário para adicionar ou atualizar usuários -->
+    <div class="container">
+        <h1>Colocar Categoria do Produtos</h1>
+        <br><br>
 
-        <tr>
-            <td>#123</td>
-            <td>FRANGO</td>
-            <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque necessitatibus rerum repellendus
-                molestias accusantium non ipsa minus aperiam aut? Inventore accusamus quisquam recusandae vitae ratione
-                voluptate, reprehenderit ad necessitatibus saepe.</td>
-            <td>€</td>
-        </tr>
-        <tr>
-            <td>#123</td>
-            <td>CHORISSO</td>
-            <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque necessitatibus rerum repellendus
-                molestias accusantium non ipsa minus aperiam aut? Inventore accusamus quisquam recusandae vitae ratione
-                voluptate, reprehenderit ad necessitatibus saepe.</td>
-            <td>€</td>
-        </tr>
-        <tr>
-            <td>#123</td>
-            <td>QUATRO QUEIJOS</td>
-            <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque necessitatibus rerum repellendus
-                molestias accusantium non ipsa minus aperiam aut? Inventore accusamus quisquam recusandae vitae ratione
-                voluptate, reprehenderit ad necessitatibus saepe.</td>
-            <td>€</td>
-        </tr>
-        <tr>
-            <td class="colsPan" colspan="4">SABORES ESPECIAIS</td>
-        </tr>
-        <tr>
-            <td>#123</td>
-            <td>FRANGO COM CATUPIRY</td>
-            <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque necessitatibus rerum repellendus
-                molestias accusantium non ipsa minus aperiam aut? Inventore accusamus quisquam recusandae vitae ratione
-                voluptate, reprehenderit ad necessitatibus saepe.</td>
-            <td>€</td>
-        </tr>
-        <tr>
-            <td>#123</td>
-            <td>ESPECIAL DA CASA</td>
-            <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque necessitatibus rerum repellendus
-                molestias accusantium non ipsa minus aperiam aut? Inventore accusamus quisquam recusandae vitae ratione
-                voluptate, reprehenderit ad necessitatibus saepe.</td>
-            <td>€</td>
-        </tr>
-    </table>
+        <!-- Tabela para exibir os usuários -->
+        <table class="table">
+            <thead>
+                <!-- Cabeçalho da tabela -->
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Configurar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop através dos produtos para preencher a tabela -->
+                @foreach ($produtos as $produto)
+                    <tr>
+                        <!-- ID do usuário -->
+                        <th scope="row">{{ $produto->id }}</th>
+
+                        <!-- Nome, morada, email, password do usuário -->
+                        <td>{{ $produto->nameProducts }}</td>
+                        <td>€ {{ $produto->price }}</td>
+
+                        <!-- Links para ver e apagar o usuário -->
+                        <td>
+                            <a href="{{ route('produtoUpdate', $produto->id) }}" class="btn btn-info">Update</a>
+                            <a href="{{ route('produtoDelete', $produto->id) }}" type="button"
+                                class="btn btn-danger">Apagar</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+
     <br><br><br><br>
 
 @endsection
