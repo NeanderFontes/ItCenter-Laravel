@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produto;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -40,6 +41,7 @@ class ProductController extends Controller
 
     public function produtoUpdate($id) {
 
+
         $produtoAtual = Produto::where('id', $id)->first();
 
         return view('produtos.product_view', compact(
@@ -56,10 +58,26 @@ class ProductController extends Controller
         return redirec()->route('produtos.product_view');
     }
 
-    public function createProduct(Request $request) {
-        
-        return view('produtos.product_create', compact(
-            'produtoAtual',
-        ));
+    // public function createProduct(Request $request) {
+
+    //     return view('produtos.product_create', compact(
+    //         'produtoAtual',
+    //     ));
+    // }
+
+    public function createProduto() {
+
+        return view('produtos.product_create');
+    }
+
+    public function store(Request $request) {
+
+        Produtos::insert([
+            'nameProducts' => $request->nameProducts,
+            'price' => $request->price,
+        ]);
+
+
+        return redirect()->route('produtos.product');
     }
 }

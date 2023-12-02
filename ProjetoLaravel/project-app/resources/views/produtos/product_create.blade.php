@@ -6,7 +6,7 @@
 @section('content')
     <br><br><br><br><br><br><br><!-- Formulário para adicionar ou atualizar usuários -->
     <div class="container">
-        <h1>Colocar Categoria do Produtos</h1>
+        <h1>Colocar Categoria do Produtos TESTE POST</h1>
         <br><br>
 
 
@@ -14,15 +14,14 @@
             @csrf
 
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Produto: </label>
-
-                <input type="text" class="form-control" id="exampleInputEmail1" name="nameProducts" value="{{ isset ($produtoAtual) ? $produtoAtual->nameProducts : "" }}">
+                <label for="exampleInputEmail1" class="form-label">Novo Produto: </label>
+                <input type="text" class="form-control" id="nameProducts" name="nameProducts">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Preço</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" value="{{ isset ($produtoAtual) ? $produtoAtual->price : "" }}">
+                <input type="text" class="form-control" id="price" name="price">
             </div>
-            <button style="background-color: #0DCAF0" type="submit" class="btn btn-primary">Update</button>
+            <button style="background-color: #0DCAF0" type="submit" class="btn btn-primary">Adicionar Produto</button>
         </form>
     </div>
 

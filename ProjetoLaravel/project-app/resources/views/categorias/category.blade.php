@@ -20,7 +20,7 @@
                 <td>{{ $categoria->name }}</td>
                 <td>{{ $categoria->description }}</td>
                 <td><a href="{{ route('produtoCategoria', $categoria->id) }}">Ver Detalhes</a></td>
-                <td><a href="{{ route('createProduct', $categoria->id) }}">Criar Produto</a></td>
+                <td><a href="{{ route('createProduto', $categoria->id) }}">Criar Produto</a></td>
             </tr>
         @endforeach
     </table>
