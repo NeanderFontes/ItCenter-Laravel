@@ -15,6 +15,7 @@
 
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Novo Produto: </label>
+                <input type="number" hidden value="{{ $id }}" name="idCategory">
                 <input type="text" class="form-control" id="nameProducts" name="nameProducts">
             </div>
             <div class="mb-3">

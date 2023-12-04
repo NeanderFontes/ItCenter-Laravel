@@ -41,7 +41,6 @@ class ProductController extends Controller
 
     public function produtoUpdate($id) {
 
-
         $produtoAtual = Produto::where('id', $id)->first();
 
         return view('produtos.product_view', compact(
@@ -55,7 +54,7 @@ class ProductController extends Controller
                 'nameProducts' => $request->name,
                 'price' => $request->price,
             ]);
-        return redirec()->route('produtos.product_view');
+        return back();
     }
 
     // public function createProduct(Request $request) {
@@ -65,14 +64,17 @@ class ProductController extends Controller
     //     ));
     // }
 
-    public function createProduto() {
+    public function createProduto($id) {
 
-        return view('produtos.product_create');
+        return view('produtos.product_create', compact(
+            'id'
+        ));
     }
 
     public function store(Request $request) {
 
-        Produtos::insert([
+        Produto::insert([
+            'idCategory' => $request->idCategory,
             'nameProducts' => $request->nameProducts,
             'price' => $request->price,
         ]);

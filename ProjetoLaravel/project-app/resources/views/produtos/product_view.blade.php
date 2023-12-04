@@ -10,8 +10,8 @@
         <br><br>
 
 
-        <form method="POST" action="{{ route('produtoStore') }}">
-            @method("PUT")
+        <form method="POST" action="{{ isset($produtoAtual) ? route('produtoStore') : route('store') }}">
+            @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Produto: </label>
                 <!-- Campo oculto para o ID do usuário (usado apenas para atualização) -->
